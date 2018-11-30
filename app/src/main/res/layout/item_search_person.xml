@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="sbis.data.model.presentation.PersonSearch" />
+
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="68dp"
+        android:background="@color/colorPrimary"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/user_photo"
+            user_photo="@{viewModel.photoUrl}"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/user_stub" />
+
+        <!--todo: txt UserName with dataBinding-->
+        <!--todo: txt UserPostName with dataBinding-->
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

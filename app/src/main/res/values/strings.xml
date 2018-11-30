@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">FaceInfo</string>
+
+    <string name="server_url_hint">Введите Url сервера</string>
+    <string name="user_sid_hint">Введите Sid пользователя</string>
+
+    <string name="empty_search_list">Начните вводить имя сотрудника,\nчтобы получить статистику</string>
+
+    <string name="oftenLeaving">Часто выходит из здания в рабочее время</string>
+</resources>

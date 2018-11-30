@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="sbis.faceinfo.presentation.detailinfo.contracts.DetailInfoVmContract.ViewModel.State" />
+
+        <variable
+            name="viewModel"
+            type="sbis.faceinfo.presentation.detailinfo.contracts.DetailInfoVmContract.ViewModel" />
+
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        android:background="@color/colorPrimaryBackground">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorCardBackground"
+            android:elevation="4dp">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/collapsing"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/detail_content_open_view_sum"
+                    app:layout_collapseMode="parallax"
+                    app:layout_collapseParallaxMultiplier="0.8" />
+
+                <FrameLayout
+                    android:id="@+id/title_custom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center_horizontal"
+                    android:background="@color/colorCardBackground"
+                    android:orientation="vertical"
+                    app:layout_collapseMode="parallax"
+                    app:layout_collapseParallaxMultiplier="0.1">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginBottom="10dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txt_user_name_title"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:gravity="bottom|center"
+                            android:text='@{viewModel.userSecondName + " " + viewModel.userName}'
+                            android:textColor="@color/colorTextPrimary"
+                            android:textSize="24sp"
+                            tools:background="@android:color/holo_blue_light"
+                            tools:text="Кузнецова Анна" />
+
+                        <TextView
+                            android:id="@+id/txt_user_post_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:gravity="bottom|center"
+                            android:text='@{viewModel.userPostName}'
+                            android:textColor="@color/colorTextSecondary"
+                            android:textSize="18sp"
+                            tools:background="@android:color/holo_orange_light"
+                            tools:text="Тех. поддержка" />
+
+                    </LinearLayout>
+
+                </FrameLayout>
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <!-- ===================================== -->
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/detail_content_space_top"
+            android:background="@color/colorPrimary"
+            android:scrollbars="none"
+            app:behavior_overlapTop="@dimen/detail_content_space_top"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:background="@drawable/shadow" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_run_man"
+                        android:drawablePadding="8dp"
+                        android:ellipsize="end"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:padding="12sp"
+                        android:text="@string/oftenLeaving"
+                        android:textColor="@color/colorTextSecondary"
+                        android:textSize="16sp"
+                        android:visibility="@{viewModel.state != State.LOADING &amp;&amp; viewModel.userParams.oftenLeaving ? View.VISIBLE : View.GONE}" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_param_items"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="@{viewModel.state != State.LOADING ? View.VISIBLE : View.INVISIBLE}"
+                        tools:itemCount="2"
+                        tools:listitem="@layout/item_person_param" />
+
+                </LinearLayout>
+
+                <ProgressBar
+                    android:layout_width="@dimen/progress_bar_size"
+                    android:layout_height="@dimen/progress_bar_size"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="4dp"
+                    android:visibility="@{viewModel.state == State.LOADING ? View.VISIBLE : View.GONE}" />
+
+            </FrameLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_user_name"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbar_final_height"
+            android:paddingStart="@dimen/custom_toolbar_padding_start"
+            app:layout_anchor="@+id/title_custom"
+            tools:background="@android:color/holo_green_light"
+            tools:ignore="RtlSymmetry">
+
+            <TextView
+                android:id="@+id/txt_user_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:text='@{viewModel.userSecondName + " " + viewModel.userName}'
+                android:textColor="@color/colorTextPrimary"
+                android:textSize="20sp"
+                tools:text="Петров Семен" />
+
+        </android.support.v7.widget.Toolbar>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_user_profile"
+            user_photo="@{viewModel.userPhotoUrl}"
+            android:layout_width="@dimen/image_circle_start_size"
+            android:layout_height="@dimen/image_circle_start_size"
+            android:layout_gravity="center_horizontal"
+            android:elevation="8dp"
+            app:civ_border_color="#FFFFFF"
+            app:civ_border_width="2dp"
+            app:finalHeight="@dimen/image_circle_final_size"
+            app:layout_behavior="sbis.helpers.view.behavior.AvatarImageBehavior"
+            tools:src="@drawable/user_stub" />
+
+    </android.support.design.widget.CoordinatorLayout>
+
+</layout>

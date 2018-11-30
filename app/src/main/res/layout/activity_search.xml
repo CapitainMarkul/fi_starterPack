@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <import type="sbis.faceinfo.presentation.search.contracts.SearchVmContract.ViewModel.State" />
+
+        <variable
+            name="viewModel"
+            type="sbis.faceinfo.presentation.search.contracts.SearchVmContract.ViewModel" />
+
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        android:background="@color/colorPrimaryBackground">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:elevation="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorPrimary"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                app:layout_scrollFlags="scroll|enterAlways|snap">
+
+                <!-- todo: img Search -->
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/etxt_search_request"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="1"
+                    android:hint="Фамилия Имя"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textColorHint="@color/colorTextSecondary"
+                    app:backgroundTint="@color/colorPrimary" />
+
+                <!-- todo: img Clear Btn -->
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorAppBarDivider" />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_search_result"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="@{viewModel.state != State.LOADING ? View.VISIBLE : View.INVISIBLE}"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:itemCount="4"
+            tools:listitem="@layout/item_search_person" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="@dimen/progress_bar_size"
+            android:layout_height="@dimen/progress_bar_size"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="?attr/actionBarSize"
+            tools:visibility="gone"
+            android:visibility="@{viewModel.state == State.LOADING ? View.VISIBLE : View.INVISIBLE}" />
+
+        <LinearLayout
+            list_person="@{viewModel.searchPersons}"
+            state_vm="@{viewModel.state}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:gravity="center"
+            android:orientation="vertical"
+            tools:visibility="gone">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/not_found" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/empty_search_list"
+                android:textColor="@color/colorTextSecondary"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+</layout>
