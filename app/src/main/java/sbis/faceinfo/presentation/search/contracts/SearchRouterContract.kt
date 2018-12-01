@@ -1,14 +1,16 @@
 package sbis.faceinfo.presentation.search.contracts
 
+import sbis.data.model.presentation.PersonSearch
+import sbis.helpers.arch.contracts.AndroidComponent
 import sbis.helpers.arch.contracts.MvpRouter
 
 interface SearchRouterContract {
 
     interface Router : MvpRouter<Presenter> {
 
-        // todo: fun showDetailInfo(androidComponent: AndroidComponent, user: PersonSearch)
+        fun showDetailInfo(androidComponent: AndroidComponent, user: PersonSearch)
 
-        // todo: fun showSettingScreen(androidComponent: AndroidComponent)
+        fun showSettingScreen(androidComponent: AndroidComponent)
     }
 
     interface Presenter : MvpRouter.Listener {

@@ -6,6 +6,8 @@ import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
+import android.support.v7.widget.LinearLayoutManager
 import com.jakewharton.rxbinding2.widget.RxTextView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import sbis.App
@@ -19,6 +21,7 @@ import sbis.faceinfo.presentation.search.router.SearchRouter
 import sbis.faceinfo.presentation.search.view.adapter.SearchPersonAdapter
 import sbis.faceinfo.presentation.search.viewModel.SearchViewModel
 import sbis.helpers.arch.base.BaseActivity
+import sbis.helpers.view.ItemListDecorator
 import java.util.concurrent.TimeUnit
 
 //TODO: ЗАДАНИЕ #3
@@ -73,8 +76,16 @@ class SearchActivity : BaseActivity<SearchVmContract.Presenter, SearchVmContract
             setItems(viewModel.searchPersons.value ?: emptyList())
         }
 
+        val linLayoutManager = LinearLayoutManager(this)
+
         binding.rvSearchResult.apply {
             //TODO: настройка виджета RecyclerView
+            adapter = searchPersonAdapter
+            layoutManager = linLayoutManager
+            setHasFixedSize(true)
+            addItemDecoration(ItemListDecorator(
+                ContextCompat.getDrawable(context, R.drawable.list_divider)!!, true))
+
             // adapter
             // layoutManager
             // fixSize
@@ -82,7 +93,7 @@ class SearchActivity : BaseActivity<SearchVmContract.Presenter, SearchVmContract
         }
 
         val searchStartCount = 3
-        binding.etxtSearchRequest.let { it ->
+        binding.textSearchRequest.let { it ->
             RxTextView.afterTextChangeEvents(it).debounce(500, TimeUnit.MILLISECONDS)
                 .map<String> { _ -> it.text.toString() }
                 .filter { searchText -> searchText.length > searchStartCount }
@@ -91,15 +102,14 @@ class SearchActivity : BaseActivity<SearchVmContract.Presenter, SearchVmContract
                 .subscribe { searchRequest -> presenter.updateSearchRequest(searchRequest) }
         }
 
-//        binding.btnClear.setOnClickListener {
-            //TODO: очистка введенного текста, путем нажания на крестик
-//        }
+        binding.clearButton.setOnClickListener {
+            binding.textSearchRequest.text.clear()
+        }
 
-//        binding.btnClear.setOnLongClickListener {
-            //TODO: открытие экрана с настройками
-
-//            return@setOnLongClickListener true
-//        }
+        binding.clearButton.setOnLongClickListener {
+            presenter.onSecretLongClick()
+            return@setOnLongClickListener true
+        }
     }
 
     override fun createSubscribers() {

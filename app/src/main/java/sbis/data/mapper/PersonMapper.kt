@@ -4,15 +4,9 @@ import sbis.data.model.gson.PersonParamsGson
 import sbis.data.model.presentation.ItemParam
 import sbis.data.model.presentation.Param
 import sbis.data.model.presentation.PersonParams
+import sbis.data.model.gson.PersonSearchGson
+import sbis.data.model.presentation.PersonSearch
 
-//TODO: PersonSearchGson to PersonSearch
-//TODO: List<PersonSearchGson> to List<PersonSearch>
-
-
-//fun PersonParamsGson.transformToPresentation() = PersonParams(
-//    oftenLeaving = oftenLeaving,
-//    params = map { it. }
-//)
 fun PersonParamsGson.transformToPresentation() = PersonParams(
     oftenLeaving = oftenLeaving,
     params = arrayListOf(
@@ -22,13 +16,14 @@ fun PersonParamsGson.transformToPresentation() = PersonParams(
         ItemParam(Param.SOCIABILITY, sociability)
     )
 )
+fun PersonSearchGson.transformToPresentation()  =
+        PersonSearch(
+            id = id,
+            name = name,
+            photoUrl = photoUrl,
+            postName = postName,
+            secondName = secondName
+        )
 
-// ============ ПРИМЕР ============
-//fun ItemParamGson.transformToPresentation() =
-//    ItemParam(
-//        title = title,
-//        value = value
-//    )
-//
-//fun List<ItemParamGson>.transformToPresentationItemParamList() =
-//    map { it.transformToPresentation() }
+fun List<PersonSearchGson>.transformToPresentation() =
+       map { it.transformToPresentation() }
