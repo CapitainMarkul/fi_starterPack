@@ -7,4 +7,9 @@
     <string name="empty_search_list">Начните вводить имя сотрудника,\nчтобы получить статистику</string>
 
     <string name="oftenLeaving">Часто выходит из здания в рабочее время</string>
+
+    <string name="ok_button">OK</string>
+
+    <string name="sid_example_label">Пример: 000000003-0000666e3e-00ba-b977e62f351fba3b</string>
+    <string name="server_url_example_label">Пример: 10.86.43.21:7070</string>
 </resources>
