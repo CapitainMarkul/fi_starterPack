@@ -30,29 +30,28 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/user_stub" />
 
-        <!--todo: txt UserName with dataBinding-->
-        <!--todo: txt UserPostName with dataBinding-->
         <TextView
             android:id="@+id/item_search_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="6px"
+            android:layout_marginStart="8dp"
             android:text="@{viewModel.name + ' ' + viewModel.secondName}"
             android:textSize="18dp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/item_search_post_name"
             app:layout_constraintLeft_toRightOf="@+id/user_photo"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/item_search_post_name"
-            app:layout_constraintVertical_chainStyle="packed"/>
+            app:layout_constraintVertical_chainStyle="packed" />
 
         <TextView
             android:id="@+id/item_search_post_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:text="@{viewModel.postName}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@+id/user_photo"
-            app:layout_constraintTop_toBottomOf="@+id/item_search_name"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@+id/item_search_name" />
 
     </android.support.constraint.ConstraintLayout>
 
