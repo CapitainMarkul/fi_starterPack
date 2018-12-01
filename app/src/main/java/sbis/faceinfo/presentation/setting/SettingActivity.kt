@@ -51,8 +51,7 @@ class SettingActivity : AppCompatActivity() {
         sidInput = binding.sidInput
 
         binding.settingsOkButt.setOnClickListener {
-            saveInputInfo(sidInput.text.toString(), serverUrlInput.text.toString())
-
+            saveInputInfo(serverUrlInput.text.toString(), sidInput.text.toString())
         }
 
         binding.sid = storageService.getUserSid()
@@ -73,7 +72,6 @@ class SettingActivity : AppCompatActivity() {
 
 
     private fun showSearchScreen() {
-        val intent: Intent = SearchActivity.createIntent(this)
-        startActivity(intent)
+        startActivity(SearchActivity.createIntent(this))
     }
 }
