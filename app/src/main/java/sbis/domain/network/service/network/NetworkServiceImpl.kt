@@ -1,9 +1,11 @@
 package sbis.domain.network.service.network
 
+import okhttp3.Callback
 import okhttp3.OkHttpClient
+import sbis.domain.network.command.rpc.GetFullPersonInfoCommand
 
 class NetworkServiceImpl(private val okHttpClient: OkHttpClient) : NetworkService {
 
-    //    TODO: searchPersons(searchRequest: String, responseCallBack: Callback)
-    //    TODO: getPersonFullInfo(...)
+    override fun getPersonFullInfo(id: Int, callBack: Callback) =
+        GetFullPersonInfoCommand(id).execute(okHttpClient, callBack)
 }

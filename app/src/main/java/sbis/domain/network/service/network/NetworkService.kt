@@ -1,6 +1,8 @@
 package sbis.domain.network.service.network
 
+import okhttp3.Callback
+
+
 interface NetworkService {
-    //    TODO: searchPersons(searchRequest: String, responseCallBack: Callback)
-    //    TODO: getPersonFullInfo(...)
+    fun getPersonFullInfo(id: Int, callBack: Callback)
 }
