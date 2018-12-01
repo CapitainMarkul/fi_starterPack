@@ -17,9 +17,9 @@
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
-        <!-- TODO: SplashTheme -->
         <activity
             android:name=".presentation.welcome.SplashActivity"
+            android:theme="@style/SplashTheme"
             android:noHistory="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">

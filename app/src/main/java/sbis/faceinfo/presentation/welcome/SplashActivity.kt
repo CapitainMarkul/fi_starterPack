@@ -1,7 +1,12 @@
 package sbis.faceinfo.presentation.welcome
 
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.app.AppCompatActivity
+import sbis.App
+import sbis.faceinfo.presentation.search.view.activity.SearchActivity
+import sbis.faceinfo.presentation.setting.SettingActivity
+
 
 //TODO: ЗАДАНИЕ #1
 /**
@@ -36,8 +41,18 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (checkState()) {
+            startActivity(SearchActivity.createIntent(this))
+        } else {
+            Handler().postDelayed({
+                startActivity(SettingActivity.createIntent(this))
+            }, 700)
+        }
 
-        //TODO: Метод для проверки наличия сохраненного URL и SID'a.
-        //TODO: Handler для запуска отложенной задачи.
+    }
+
+    private fun checkState(): Boolean {
+        val storageService = App.get().getStorageService()
+        return storageService.getServerUrl().isNotEmpty() && storageService.getUserSid().isNotEmpty()
     }
 }
