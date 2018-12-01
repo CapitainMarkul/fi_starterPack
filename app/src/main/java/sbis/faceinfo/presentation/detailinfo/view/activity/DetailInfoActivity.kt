@@ -1,5 +1,6 @@
 package sbis.faceinfo.presentation.detailinfo.view.activity
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
@@ -89,9 +90,13 @@ class DetailInfoActivity : BaseActivity<DetailInfoVmContract.Presenter, DetailIn
     }
 
     override fun createSubscribers() {
-        //TODO: observe errorMessage, userParams
-        //TODO: 'errorMessage' -> ShowErrorMessage
-        //TODO: 'userParams' -> detailParamsAdapter.setItems(...)
+        viewModel.errorMessage.observe(this@DetailInfoActivity, Observer { message ->
+            message?.let { showErrorMessage(it) }
+        })
+        viewModel.userParams.observe(this@DetailInfoActivity, Observer { params ->
+            params?.let { detailParamsAdapter.setItems(it.params) }
+        })
+
     }
 
     //region Animation
